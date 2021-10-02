@@ -11,8 +11,7 @@ Since includes is in the views folder you can just type ../ to go up a level. Fu
 <%- include('../includes/navigation.ejs') %>
 
     <main>
-        <h1>This is our edit-product EJS.</h1>
-        <h2>Used for both adding and editing products.</h2>
+        <h1>Add or Edit Products</h1>
         <form class="product-form" action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST"> <!-- this determines the submit button action -->
             <div class="form-control">
                 <label for="title">Title</label>
