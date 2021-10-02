@@ -1,0 +1,41 @@
+<!-- the following line is an EJS include. You simply include the path to the file you want to render.
+Since includes is in the views folder you can just type ../ to go up a level. Full path is '../includes/head.ejs'. -->
+<%- include('../includes/head.ejs') %>
+
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+    
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <h1>This is our edit-product EJS.</h1>
+        <h2>Used for both adding and editing products.</h2>
+        <form class="product-form" action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST"> <!-- this determines the submit button action -->
+            <div class="form-control">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" value="<% if (editing) { %><%=product.title%><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="imageUrl">Image URL</label>
+                <input type="text" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%=product.imageUrl%><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="price">Price</label>
+                <input type="number" name="price" id="price" step="0.01" value="<% if (editing) { %><%=product.price%><% } %>"> <!-- to enable decimal input use the 'step' property. This on says "increment in 0.01 steps". -->
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" rows="5"><% if (editing) { %><%=product.description%><% } %></textarea>
+            </div>
+            <% if (editing) { %>
+                <input type="hidden" value="<%= product.id %>" name="productId"> <!-- the hidden input gets sent when the submit button is pressed. It is filled with the existing product.id if we are in editing mode.-->
+            <% } %>
+
+            <!-- the following line says, if you're in 'editing' mode display 'Update Product' on the button else display 'Add Product'  on the button. -->
+            <button class="btn" type="submit"> <% if (editing) { %>Update Product<% } else { %>Add Product<% } %> </button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>
